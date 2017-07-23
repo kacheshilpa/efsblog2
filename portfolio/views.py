@@ -124,7 +124,7 @@ def investment_new(request):
            investment.save()
            investments = Investment.objects.filter(acquired_date__lte=timezone.now())
            return render(request, 'portfolio/investment_list.html',
-                         {'investment': investments})
+                         {'investments': investments})
    else:
        form = InvestmentForm()
        # print("Else")
