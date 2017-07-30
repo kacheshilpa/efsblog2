@@ -13,9 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
-
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views
@@ -25,4 +22,9 @@ urlpatterns = [
     url(r'', include('portfolio.urls', namespace='portfolio')),
     url(r'^accounts/login/$', views.login, name='login'),
     url(r'^accounts/logout/$', views.logout, name='logout', kwargs={'next_page': '/'}),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/password_reset/$', views.password_reset, name='password_reset'  ),
+    url(r'^accounts/password_reset_done/$', views.password_reset_done,name='password_reset_done'),
+    url(r'^accounts/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.password_reset, name='password_reset_confirm'  ),
+    url(r'^accounts/password_reset_complete/$', views.password_reset_complete,name='password_reset_complete'),
 ]
